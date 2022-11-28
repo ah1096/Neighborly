@@ -20,6 +20,7 @@ class UserAPIView(APIView):
         if pk:
             data = self.get_object(pk)
             serializer = UserSerializer(data)
+            
         else:
             data = CustomUser.objects.all()
             serializer = UserSerializer(data, many=True)

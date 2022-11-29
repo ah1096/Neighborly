@@ -43,4 +43,23 @@ class UserAPIView(APIView):
 
         return response
 
+#update user
+    def put(self, request, pk=None, format=None):
+        print('UPDATE')
+        user_to_update = CustomUser.objects.get(pk=pk)
+        data = request.data
+        serializer = UserSerializer(instance=user_to_update, data=data, partial=True)
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        response = Response()
+
+        response.data = {
+            'message' : 'Profile updated successfully',
+            'data' : serializer.data
+        }
+
+        return response
+
 

@@ -25,7 +25,7 @@ class UserAPIView(APIView):
             data = CustomUser.objects.all()
             serializer = UserSerializer(data, many=True)
 
-            return Response(serializer.data)
+        return Response(serializer.data)
             
 # create a new user
     def post(self, request, format=None):

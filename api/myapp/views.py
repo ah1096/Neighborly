@@ -62,4 +62,9 @@ class UserAPIView(APIView):
 
         return response
 
+#delete user/deactivate account
+    def delete(self, request, pk, format=None):
+        user_to_delete = self.get_object(pk=pk)
+        user_to_delete.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 

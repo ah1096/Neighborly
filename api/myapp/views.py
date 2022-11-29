@@ -7,7 +7,6 @@ from .serializers import UserSerializer
 from rest_framework.response import Response
 
 class UserAPIView(APIView):
-
 # get one user
     def get_object(self, pk):
         try:

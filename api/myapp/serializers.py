@@ -2,10 +2,13 @@ from rest_framework import serializers
 from .models import CustomUser
 
 class UserSerializer(serializers.ModelSerializer):
+    
 
-    class Meta:
+
+    class Meta: 
+
         model = CustomUser
-        fields = ('email', 'id', 'username', 'password', 'first_name', 'last_name', 'biotext') 
+        fields = ('email', 'id', 'username', 'password', 'first_name', 'last_name', 'biotext', 'skills') 
         """ 
         only pull in the PROVIDED DJANGO USER FIELDS that are going to be used in creating a user, 
         and then add your extended fields,

@@ -36,7 +36,7 @@ class UserAPIView(APIView):
         serializer.save()
         response = Response()
         response.data = {
-            'message': "User created successfully",
+            'message': "Profile created successfully",
             'data': serializer.data,
         }
 
@@ -66,4 +66,5 @@ class UserAPIView(APIView):
         user_to_delete = self.get_object(pk=pk)
         user_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 

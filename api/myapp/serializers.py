@@ -1,12 +1,17 @@
 from rest_framework import serializers
 from .models import CustomUser
+from .models import Skill
+
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = "__all__"
+
 
 class UserSerializer(serializers.ModelSerializer):
-    
-
-
+    skills = serializers.PrimaryKeyRelatedField(queryset=Skill.objects.all(), many=True)
     class Meta: 
-
         model = CustomUser
         fields = ('email', 'id', 'username', 'password', 'first_name', 'last_name', 'biotext', 'skills') 
         """ 
@@ -23,4 +28,5 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
 

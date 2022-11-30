@@ -4,6 +4,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import CustomUser
 from .serializers import UserSerializer
+from .serializers import SkillSerializer
 from rest_framework.response import Response
 
 class UserAPIView(APIView):
@@ -66,5 +67,27 @@ class UserAPIView(APIView):
         user_to_delete = self.get_object(pk=pk)
         user_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+class SkillAPIView(APIView):
+# get one skill
+    def get_object(self, pk):
+        try:
+            return Skill.objects.get(pk=pk)
+        except Skill.DoesNotExist:
+            raise Http404
+
+# get all skills; READ
+    def get(self, request, pk=None, format=None):
+        if pk:
+            data = self.get_object(pk)
+            serializer = SkillSerializer(data)
+            
+        else:
+            data = Skill.objects.all()
+            serializer = SkillSerializer(data, many=True)
+
+        return Response(serializer.data)
 
 

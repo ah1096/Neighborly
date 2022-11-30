@@ -3,6 +3,10 @@ from .models import CustomUser
 from .models import Skill
 
 
+#https://www.youtube.com/watch?v=YZN_HDtsRLc&t=136s&ab_channel=BootcampVideos
+#https://www.geeksforgeeks.org/axios-in-react-a-guide-for-beginners/
+
+
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill

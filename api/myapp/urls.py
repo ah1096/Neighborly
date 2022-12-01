@@ -6,6 +6,7 @@ router = routers.SimpleRouter()
 router.register(r'user', UserViewSet)
 router.register(r'skills', SkillViewSet)
 router.register(r'locations', LocationViewSet)
+router.register(r'roles', RoleViewSet)
 
 
 urlpatterns = [

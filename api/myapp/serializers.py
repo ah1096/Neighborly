@@ -19,14 +19,21 @@ class LocationSerializer(serializers.ModelSerializer):
         model = Location
         fields = ('id','location')
 
+class RoleSerializer(serializers.ModelSerializer):
+    # user_list = NameListingField(many=True, read_only=True)
+    class Meta:
+        model = Role
+        fields = ('id','role')
+
 
 class UserSerializer(serializers.ModelSerializer):
     skills = SkillField(many=True, required=False, queryset=Skill.objects.all())
     location = LocationField(many=False, required=False, queryset=Location.objects.all())
+    role = RoleField(many=False, required=False, queryset=Role.objects.all())
 
     class Meta: 
         model = CustomUser
-        fields = ('email', 'id', 'username', 'password', 'first_name', 'last_name', 'biotext', 'skills', 'location') 
+        fields = ('email', 'id', 'username', 'password', 'first_name', 'last_name', 'biotext', 'skills', 'location', 'role') 
         """ 
         only pull in the PROVIDED DJANGO USER FIELDS that are going to be used in creating a user, 
         and then add your extended fields,

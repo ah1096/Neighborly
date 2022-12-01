@@ -15,3 +15,11 @@ class LocationField(serializers.RelatedField):
 
     def to_internal_value(self, data):
         return Location.objects.get(pk=data)
+
+
+class RoleField(serializers.RelatedField):
+    def to_representation(self, instance):
+        return instance.role_tag
+
+    def to_internal_value(self, data):
+        return Role.objects.get(pk=data)

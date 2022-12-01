@@ -21,4 +21,7 @@ class LocationViewSet(ModelViewSet):
     serializer_class = LocationSerializer
     http_method_names = ['get', 'post']
 
-
+class RoleViewSet(ModelViewSet):
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
+    http_method_names = ['get', 'post']

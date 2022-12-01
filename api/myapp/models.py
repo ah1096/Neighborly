@@ -4,8 +4,7 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     biotext = models.TextField(max_length=300, default=None, null=True)
     skills = models.ManyToManyField('Skill', related_name="user_list")
-
-    role = models.ForeignKey('Role', on_delete=models.DO_NOTHING, default=None, null=True)
+    role = models.ForeignKey('Role', on_delete=models.DO_NOTHING, default=None, null=True, related_name="user_list")
     location = models.ForeignKey('Location', on_delete=models.DO_NOTHING, default=None, null=True, related_name="user_list")
 
     def __str__(self):
@@ -22,24 +21,10 @@ class Skill(models.Model):
 
 #https://docs.djangoproject.com/en/4.1/ref/models/fields/#choices
 class Role(models.Model):
-    USER = "US"
-    MAKER = "MA"
-    FIXER = "FI"
-    TEACHER = "TE"
-    HELPER = "HE"
-
-    ROLE_CHOICES = [
-        (USER, 'User'),
-        (MAKER, 'Maker'),
-        (FIXER, 'Fixer'),
-        (TEACHER, 'Teacher'),
-        (HELPER, 'Helper'),
-    ]
 
     role_tag = models.CharField(
-        max_length = 2,
-        choices = ROLE_CHOICES,
-        default=USER,
+        max_length = 10,
+        default="User",
     )
 
     def __str__(self):

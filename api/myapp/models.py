@@ -6,7 +6,7 @@ class CustomUser(AbstractUser):
     skills = models.ManyToManyField('Skill', related_name="user_list")
 
     role = models.ForeignKey('Role', on_delete=models.DO_NOTHING, default=None, null=True)
-    location = models.ManyToManyField('Location', related_name="user_list")
+    location = models.ForeignKey('Location', on_delete=models.DO_NOTHING, default=None, null=True, related_name="user_list")
 
     def __str__(self):
         return self.username

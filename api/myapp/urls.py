@@ -1,13 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
 from rest_framework import routers
 
 router = routers.SimpleRouter()
-router.register(r'user', UserAPIView)
-router.register(r'skills', SkillAPIView)
+router.register(r'user', UserViewSet)
+router.register(r'skills', SkillViewSet)
+router.register(r'locations', LocationViewSet)
 
 
 urlpatterns = [
-    path('myapp', UserAPIView.as_view()),
-    path('myapp/<str:pk>/', UserAPIView.as_view())
+    path('', include(router.urls))
 ]

@@ -1,93 +1,24 @@
 from django.shortcuts import render
 from django.http.response import Http404
 from django.shortcuts import render
-from rest_framework.views import APIView
-from .models import CustomUser
-from .serializers import UserSerializer
-from .serializers import SkillSerializer
+from .models import *
+from .serializers import *
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
-class UserAPIView(APIView):
-# get one user
-    def get_object(self, pk):
-        try:
-            return CustomUser.objects.get(pk=pk)
-        except CustomUser.DoesNotExist:
-            raise Http404
+class UserViewSet(ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    http_method_names = ['get', 'post', 'put', 'delete']
 
-# get all users; READ
-    def get(self, request, pk=None, format=None):
-        if pk:
-            data = self.get_object(pk)
-            serializer = UserSerializer(data)
-            
-        else:
-            data = CustomUser.objects.all()
-            serializer = UserSerializer(data, many=True)
+class SkillViewSet(ModelViewSet):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+    http_method_names = ['get', 'post']
 
-        return Response(serializer.data)
-            
-# create a new user
-    def post(self, request, format=None):
-        print('You sent a post request')
-        data = request.data
-        serializer = UserSerializer(data=data)
-
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        response = Response()
-        response.data = {
-            'message': "Profile created successfully",
-            'data': serializer.data,
-        }
-
-        return response
-
-#update user
-    def put(self, request, pk=None, format=None):
-        print('UPDATE')
-        user_to_update = CustomUser.objects.get(pk=pk)
-        data = request.data
-        serializer = UserSerializer(instance=user_to_update, data=data, partial=True)
-
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        response = Response()
-
-        response.data = {
-            'message' : 'Profile updated successfully',
-            'data' : serializer.data
-        }
-
-        return response
-
-#delete user/deactivate account
-    def delete(self, request, pk, format=None):
-        user_to_delete = self.get_object(pk=pk)
-        user_to_delete.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-
-class SkillAPIView(APIView):
-# get one skill
-    def get_object(self, pk):
-        try:
-            return Skill.objects.get(pk=pk)
-        except Skill.DoesNotExist:
-            raise Http404
-
-# get all skills; READ
-    def get(self, request, pk=None, format=None):
-        if pk:
-            data = self.get_object(pk)
-            serializer = SkillSerializer(data)
-            
-        else:
-            data = Skill.objects.all()
-            serializer = SkillSerializer(data, many=True)
-
-        return Response(serializer.data)
+class LocationViewSet(ModelViewSet):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+    http_method_names = ['get', 'post']
 
 

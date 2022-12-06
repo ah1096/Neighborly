@@ -178,11 +178,25 @@ SECRET_KEY = 'django-insecure-e9dw3nzb0@!4*s44n#1ri#m85e-3heow1z*vzypsb^4!!*t)==
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io', 'https://limitless-peak-84828.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io']
 
 AUTH_USER_MODEL = 'myapp.CustomUser'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io']
+
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://.*\.gitpod\.io$",
+    ]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'https://*.gitpod.io',
+]
+
+
 
 # Application definition
 
@@ -264,7 +278,7 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-      'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',

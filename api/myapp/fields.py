@@ -23,3 +23,11 @@ class RoleField(serializers.RelatedField):
 
     def to_internal_value(self, data):
         return Role.objects.get(pk=data)
+
+
+class PostField(serializers.RelatedField):
+    def to_representation(self, instance):
+        return instance.title
+
+    def to_internal_value(self, data):
+        return Post.objects.get(pk=data)

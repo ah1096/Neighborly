@@ -56,8 +56,8 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now= True)
 
-    exTags = models.ManyToManyField(Exchange, blank=True)
-    lTags = models.ManyToManyField(Location, default=CustomUser.location)
+    # exTags = models.ManyToManyField(Exchange, blank=True)
+    # lTags = models.ManyToManyField(Location, default=CustomUser.location)
 
     #image = models.ImageField(upload_to='', blank=True, null=True) --> ADD THIS LATER W/ FIREBASE
 
@@ -67,11 +67,11 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self):
-        if not self.ltags:
-            user = CustomUser.objects.get(pk=self.author)
-            self.ltags.add(user.location)
-        super(Post, self).save(*args, **kwargs)
+    # def save(self):
+    #     if not self.ltags:
+    #         user = CustomUser.objects.get(pk=self.author)
+    #         self.ltags.add(user.location)
+    #     super(Post, self).save(*args, **kwargs)
 
 
 

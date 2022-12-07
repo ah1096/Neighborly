@@ -43,7 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
-        skills_data = validated_data.pop('skills')
+        skills_data = validated_data.pop('skills', None)
         instance = self.Meta.model(**validated_data)  # as long as the fields are the same, we can just use this
         
         
@@ -51,8 +51,9 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
 
-        for skill in skills_data:
-            instance.skills.add(skill)
+        if skills_data:
+            for skill in skills_data:
+                instance.skills.add(skill)
 
         return instance
 

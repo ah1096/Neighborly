@@ -11,6 +11,7 @@ router.register(r'skills', SkillViewSet)
 router.register(r'locations', LocationViewSet)
 router.register(r'roles', RoleViewSet)
 router.register(r'posts', PostViewSet)
+router.register(r'comments', CommentViewSet)
 
 
 urlpatterns = [

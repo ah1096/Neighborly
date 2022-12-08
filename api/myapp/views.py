@@ -34,3 +34,8 @@ class PostViewSet(ModelViewSet):
     def perform_create(self, serializer):
         user = CustomUser.objects.get(id=self.request.data["author"])
         serializer.save(author=user)
+
+class CommentViewSet(ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    http_method_names = ['get', 'post']

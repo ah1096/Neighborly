@@ -26,8 +26,27 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = ('id','role')
 
 
+class ExchangeSerializer(serializers.ModelSerializer):
+    # user_list = NameListingField(many=True, read_only=True)
+    class Meta:
+        model = Exchange
+        fields = ('id','exchange')
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+    class Meta:
+        model = Comment
+        fields = (
+                'id',
+                'content',
+                'author',
+                'created_at', 
+                'post'
+                )
+
+
 class PostSerializer(serializers.ModelSerializer):
-    #comments = CommentSerializer(many=True,read_only=True)
+    comments = CommentSerializer(many=True,read_only=True)
     class Meta:
         model = Post
         fields = (
@@ -36,7 +55,7 @@ class PostSerializer(serializers.ModelSerializer):
                 'content',
                 'author',
                 'created_on',
-                #'comments'
+                'comments'
                 )
 
 
@@ -72,24 +91,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         return instance
 
-# EXCHANGE TAGS, POST AND COMMENTS ////////////////////
 
-class ExchangeSerializer(serializers.ModelSerializer):
-    # user_list = NameListingField(many=True, read_only=True)
-    class Meta:
-        model = Exchange
-        fields = ('id','exchange')
 
-# class CommentSerializer(serializers.ModelSerializer):
-#     commented_by = serializers.ReadOnlyField(source='comment_author.username')
-#     class Meta:
-#         model = Comment
-#         fields = (
-#                 'id',
-#                 'comment',
-#                 'author',
-#                 'created_at', 
-#                 'post'
-#                 )
 
 

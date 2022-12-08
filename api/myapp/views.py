@@ -19,12 +19,12 @@ class SkillViewSet(ModelViewSet):
 class LocationViewSet(ModelViewSet):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put']
 
 class RoleViewSet(ModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put']
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
@@ -38,7 +38,7 @@ class PostViewSet(ModelViewSet):
 class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put', 'delete']
 
     def perform_create(self, serializer):
         user = CustomUser.objects.get(id=self.request.data["author"])

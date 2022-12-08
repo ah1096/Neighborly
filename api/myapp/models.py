@@ -56,7 +56,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now= True)
 
-    # exTags = models.ManyToManyField(Exchange, blank=True)
+    exTag = models.ForeignKey('Exchange', on_delete=models.DO_NOTHING, default=None, null=True, related_name="user_list")
     # lTags = models.ManyToManyField(Location, default=CustomUser.location)
 
     #image = models.ImageField(upload_to='', blank=True, null=True) --> ADD THIS LATER W/ FIREBASE

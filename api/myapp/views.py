@@ -34,6 +34,7 @@ class PostViewSet(ModelViewSet):
     def perform_create(self, serializer):
         user = CustomUser.objects.get(id=self.request.data["author"])
         serializer.save(author=user)
+    
 
 class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
@@ -43,3 +44,8 @@ class CommentViewSet(ModelViewSet):
     def perform_create(self, serializer):
         user = CustomUser.objects.get(id=self.request.data["author"])
         serializer.save(author=user)
+    
+class ExchangeViewSet(ModelViewSet):
+    queryset = Exchange.objects.all()
+    serializer_class = ExchangeSerializer
+    http_method_names = ['get', 'post', 'put']

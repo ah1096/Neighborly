@@ -30,7 +30,7 @@ class ExchangeSerializer(serializers.ModelSerializer):
     # user_list = NameListingField(many=True, read_only=True)
     class Meta:
         model = Exchange
-        fields = ('id','exchange')
+        fields = ('id','exchange_tag')
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
@@ -47,6 +47,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True,read_only=True)
+    exTag = ExchangeField(many=False, required=False, queryset=Exchange.objects.all())
     class Meta:
         model = Post
         fields = (
@@ -55,7 +56,8 @@ class PostSerializer(serializers.ModelSerializer):
                 'content',
                 'author',
                 'created_on',
-                'comments'
+                'comments',
+                'exTag'
                 )
 
 

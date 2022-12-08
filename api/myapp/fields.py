@@ -31,3 +31,10 @@ class PostField(serializers.RelatedField):
 
     def to_internal_value(self, data):
         return Post.objects.get(pk=data)
+
+class ExchangeField(serializers.RelatedField):
+    def to_representation(self, instance):
+        return instance.exchange_tag
+
+    def to_internal_value(self, data):
+        return Exchange.objects.get(pk=data)

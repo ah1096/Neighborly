@@ -9,7 +9,7 @@ from rest_framework.viewsets import ModelViewSet
 class UserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    http_method_names = ['get', 'post', 'put', 'delete']
+    http_method_names = ['get', 'post', 'put', 'delete', 'patch']
 
 class SkillViewSet(ModelViewSet):
     queryset = Skill.objects.all()

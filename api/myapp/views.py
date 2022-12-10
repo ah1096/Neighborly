@@ -29,7 +29,7 @@ class RoleViewSet(ModelViewSet):
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    http_method_names = ['get', 'post', 'put', 'delete']
+    http_method_names = ['get', 'post', 'put', 'delete', 'patch']
 
     def perform_create(self, serializer):
         user = CustomUser.objects.get(id=self.request.data["author"])

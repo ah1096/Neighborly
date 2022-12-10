@@ -49,7 +49,6 @@ class Exchange(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True) #creates unique URL based on the title of the post
     author = models.ForeignKey(CustomUser, on_delete= models.CASCADE, related_name='user_post')
     content = models.TextField(max_length=2000)
@@ -65,7 +64,7 @@ class Post(models.Model):
         ordering = ['-created_on']
 
     def __str__(self):
-        return self.title
+        return self.content
 
     # def save(self):
     #     if not self.ltags:

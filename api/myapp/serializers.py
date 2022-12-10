@@ -46,13 +46,13 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
     comments = CommentSerializer(many=True,read_only=True)
     exTag = ExchangeField(many=False, required=False, queryset=Exchange.objects.all())
     class Meta:
         model = Post
         fields = (
                 'id',
-                'title',
                 'content',
                 'author',
                 'created_on',

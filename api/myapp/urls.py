@@ -4,7 +4,6 @@ from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
 
-
 router = routers.SimpleRouter()
 router.register(r'user', UserViewSet)
 router.register(r'skills', SkillViewSet)
@@ -13,6 +12,8 @@ router.register(r'roles', RoleViewSet)
 router.register(r'posts', PostViewSet)
 router.register(r'comments', CommentViewSet)
 router.register(r'exchanges', ExchangeViewSet)
+
+router.register(r'taggedposts', TaggedPostViewSet)
 
 
 

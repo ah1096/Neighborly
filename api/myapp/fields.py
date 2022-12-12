@@ -57,4 +57,4 @@ class ExchangeField(serializers.RelatedField):
         return instance.exchange_tag
 
     def to_internal_value(self, data):
-        return Exchange.objects.get(pk=data)
+        return Exchange.objects.get(id=data)

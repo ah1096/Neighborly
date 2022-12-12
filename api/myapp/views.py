@@ -5,6 +5,7 @@ from .models import *
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
 
 class UserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -49,3 +50,13 @@ class ExchangeViewSet(ModelViewSet):
     queryset = Exchange.objects.all()
     serializer_class = ExchangeSerializer
     http_method_names = ['get', 'post', 'put']
+
+
+class TaggedPostViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    http_method_names = ['get', 'post', 'put', 'delete']
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['exTag__exchange_tag']
+
+

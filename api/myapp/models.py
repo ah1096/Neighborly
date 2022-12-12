@@ -49,15 +49,14 @@ class Exchange(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True) #creates unique URL based on the title of the post
     author = models.ForeignKey(CustomUser, on_delete= models.CASCADE, related_name='user_post')
     content = models.TextField(max_length=2000)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now= True)
 
-    exTags = models.ManyToManyField(Exchange, blank=True)
-    lTags = models.ManyToManyField(Location, default=CustomUser.location)
+    exTag = models.ForeignKey('Exchange', on_delete=models.DO_NOTHING, default=None, null=True, related_name="user_list")
+    # lTags = models.ManyToManyField(Location, default=CustomUser.location)
 
     #image = models.ImageField(upload_to='', blank=True, null=True) --> ADD THIS LATER W/ FIREBASE
 
@@ -65,27 +64,24 @@ class Post(models.Model):
         ordering = ['-created_on']
 
     def __str__(self):
-        return self.title
+        return self.content
 
-    def save(self):
-        if not self.ltags:
-            user = CustomUser.objects.get(pk=self.author)
-            self.ltags.add(user.location)
-        super(Post, self).save(*args, **kwargs)
+    # def save(self):
+    #     if not self.ltags:
+    #         user = CustomUser.objects.get(pk=self.author)
+    #         self.ltags.add(user.location)
+    #     super(Post, self).save(*args, **kwargs)
 
 
 
 # do comments AFTER posts are working
 
-# class Comment(models.Model):
-#     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_comment')
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-#     comment = models.CharField(max_length=800)
-#     created_at = models.DateField(auto_now_add=True)
+class Comment(models.Model):
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_comment')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    content = models.CharField(max_length=800)
+    created_at = models.DateField(auto_now_add=True)
 
-#     class Meta:
-#         ordering = ['-created_on']
-
-#     def __str__(self):
-#         return self.comment
+    def __str__(self):
+        return self.comment
 

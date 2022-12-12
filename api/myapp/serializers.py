@@ -26,14 +26,50 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = ('id','role')
 
 
+class ExchangeSerializer(serializers.ModelSerializer):
+    # user_list = NameListingField(many=True, read_only=True)
+    class Meta:
+        model = Exchange
+        fields = ('id','exchange_tag')
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+    class Meta:
+        model = Comment
+        fields = (
+                'id',
+                'content',
+                'author',
+                'created_at', 
+                'post'
+                )
+
+
+class PostSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+    comments = CommentSerializer(many=True,read_only=True)
+    exTag = ExchangeField(many=False, required=False, queryset=Exchange.objects.all())
+    class Meta:
+        model = Post
+        fields = (
+                'id',
+                'content',
+                'author',
+                'created_on',
+                'comments',
+                'exTag'
+                )
+
+
 class UserSerializer(serializers.ModelSerializer):
     skills = SkillField(many=True, required=False, queryset=Skill.objects.all())
     location = LocationField(many=False, required=False, queryset=Location.objects.all())
     role = RoleField(many=False, required=False, queryset=Role.objects.all())
+    user_post = PostSerializer(many=True, required=False)
 
     class Meta: 
         model = CustomUser
-        fields = ('email', 'id', 'username', 'password', 'first_name', 'last_name', 'biotext', 'skills', 'location', 'role') 
+        fields = ('email', 'id', 'is_staff', 'username', 'password', 'first_name', 'last_name', 'biotext', 'skills', 'location', 'role', 'user_post') 
         """ 
         only pull in the PROVIDED DJANGO USER FIELDS that are going to be used in creating a user, 
         and then add your extended fields,
@@ -56,5 +92,8 @@ class UserSerializer(serializers.ModelSerializer):
                 instance.skills.add(skill)
 
         return instance
+
+
+
 
 
